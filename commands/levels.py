@@ -59,10 +59,25 @@ class Levels(commands.Cog):
             else:
                 channel = message.guild.get_channel(guild_channel)
 
-                await channel.send(f"{message.author.display_name} has reached level {user['level']}!")
+                await channel.send(f"{message.author.display_name} has reached level {user['level'] + 1}!")
 
         if user['level'] == 50 or user['level'] == 100:
             await message.guild.owner.send(f"{message.author.display_name} has reached level 50 or 100!")
+
+        # implementing roles
+        role_coll = db.role
+        role_guild = role_coll.find_one({"_id": message.guild.id})
+
+        if role_guild is not None:
+            roles = role_coll.find_one({"_id": message.guild.id})['roles']
+
+            for role_id, value in roles.items():
+                if roles[role_id]['level_required'] == user['level'] + 1:
+                    role = message.guild.get_role(int(role_id))
+
+                    await message.author.add_roles(role)
+                    return
+
 
     @levels.command(name="setup", description='Set the levels channel')
     @commands.has_permissions(manage_messages=True)
@@ -76,9 +91,15 @@ class Levels(commands.Cog):
         await interaction.response.send_message(f"Starting the setup process")
 
         coll = db.guilds
-        coll.insert_one({"_id": interaction.guild.id, "channel": channel.id, "xp_inc": xp, "disabled": False})
 
-        await interaction.followup.send(f"The channel set for levels logging is <#{channel.id}>\nThe xp increment is {xp}")
+        guild = coll.find_one({"_id": interaction.guild.id})
+
+        if guild is not None:
+            await interaction.followup.send("Levels have already been setup for this server.\nWant to update? Try `/levels edit`")
+            return
+
+        coll.insert_one({"_id": interaction.guild.id, "channel": channel.id, "xp_inc": xp, "disabled": False})
+        await interaction.followup.send(f"The channel set for levels logging is {channel.mention}\nThe xp increment is {xp}")
 
     @levels.command(name='edit', description='Edit the current config')
     @commands.has_permissions(manage_messages=True)
@@ -103,7 +124,7 @@ class Levels(commands.Cog):
 
         coll.update_one({"_id": interaction.guild.id}, {"$set": {"channel": channel.id, "xp_inc": xp, "disabled": disabled}})
 
-        await interaction.followup.send(f"Current channel: <#{channel.id}>\nXP is: {xp}\nAre levels disabled? {disabled}")
+        await interaction.followup.send(f"Current channel: {channel.mention}\nXP is: {xp}\nAre levels disabled? {disabled}")
 
     @levels.command(name="rank", description='Show your current level and xp!')
     async def rank(self, interaction: discord.Interaction, member: discord.Member = None):
@@ -128,20 +149,36 @@ class Levels(commands.Cog):
 
         await interaction.response.send_message(embed=em)
 
-    # @levels.command(name='leaderboard', description='View the servers leaderboard')
-    # async def leaderboard(self, interaction: discord.Interaction):
-    #     guild_coll = db.guilds
-    #     users_coll = db.accounts
-    #
-    #     users = users_coll.find({})
-    #
-    #     for user in users:
-    #         pass
-    #
-    #     em = discord.Embed(title='Leaderboard', description='View the people with the highest XP')
-    #
-    #
-    #     await interaction.response.send_message("This command is currently under development...")
+    @levels.command(name="give", description="Give a user XP")
+    @commands.has_permissions(manage_messages=True)
+    async def give(self, interaction: discord.Interaction, user: discord.Member, xp: int):
+        user_coll = db.accounts
+        user = user_coll.find_one({"_id": user.id})
+
+        if user is None:
+            await interaction.response.send_message(f"Cannot give user {xp} XP because they have not sent a message yet.")
+            return
+
+        user_coll.update_one({"_id": user.id}, {"$inc": {"xp": xp}})
+        await interaction.response.send_message(f"Gave {user.display_name} {xp} XP.\nIf you gave the user enough XP please ask them to send a few messages to update the db.")
+
+    @levels.command(name="role", description="Add a leveling role to the user")
+    @commands.has_permissions(manage_messages=True)
+    async def role(self, interaction: discord.Interaction, role: discord.Role, level_required: int):
+        role_coll = db.role
+
+        guild = role_coll.find_one({"_id": interaction.guild.id})
+
+        if guild is None:
+            role_coll.insert_one(
+                {"_id": interaction.guild.id, "roles": {str(role.id): {"level_required": level_required}}})
+        else:
+            role_coll.update_one({"_id": interaction.guild.id}, {"$set": {f"roles.{str(role.id)}": {"level_required": level_required}}})
+
+        await interaction.response.send_message(
+            f"{role.mention} has been added. Level required is {level_required}\n"
+            f":warning: Please note. Any user that has already achieved this level will not get the role automatically. "
+            f"You will have to give them this role manually! :warning:")
 
 
 async def setup(bot):
