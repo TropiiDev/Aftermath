@@ -39,7 +39,7 @@ class MyBot(commands.Bot):
         # super().__init__(command_prefix=get_server_prefix, intents = intents) - prefix setup
         super().__init__(command_prefix="!", intents=intents)
         self.synced = False
-        # self.remove_command("help")     
+        self.remove_command("help")
 
     async def setup_hook(self):
         print(f'\33[32mLogged in as {self.user} (ID: {self.user.id})')
