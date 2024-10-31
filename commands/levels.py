@@ -61,9 +61,6 @@ class Levels(commands.Cog):
 
                 await channel.send(f"{message.author.display_name} has reached level {user['level'] + 1}!")
 
-        if user['level'] == 50 or user['level'] == 100:
-            await message.guild.owner.send(f"{message.author.display_name} has reached level 50 or 100!")
-
         # implementing roles
         role_coll = db.role
         role_guild = role_coll.find_one({"_id": message.guild.id})
