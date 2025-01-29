@@ -15,6 +15,7 @@ class Help(commands.Cog):
         em = discord.Embed(title="Help Command", description="These are all the commands", color=interaction.user.color)
         em.add_field(name="Levels", value="Setup - Admins Only\nEdit - Admins Only\nRank - Show your rank\nGive - Admins Only\nRole - Admins Only")
         em.add_field(name="Tickets", value="Setup - Admins Only\nCreate - Create a ticket\nClose - Close your ticket\nDelete - Admins Only")
+        em.add_field(name="Quiz", value="Quiz - Test your knowledge\nLeaderboard - Check who has the highest score")
         em.add_field(name="Others", value="Ping - Show the latency of the bot")
 
         await interaction.response.send_message(embed=em)
