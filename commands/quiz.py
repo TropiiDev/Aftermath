@@ -5,6 +5,7 @@ from lib.quiz_helper import *
 
 class Select(discord.ui.Select):
     def __init__(self):
+        self.theme = None
         options = [
             discord.SelectOption(label="History", emoji="1️⃣", description="Do you know your past?"),
             discord.SelectOption(label="Geography", emoji="2️⃣", description="Do you know your geography?"),
@@ -16,10 +17,14 @@ class Select(discord.ui.Select):
 
     async def callback(self, interaction: discord.Interaction):
         if self.values[0] == "History":
-            questions = load_history_questions()
-            for i in range(len(questions)):
-                em = discord.Embed(title=f"Question {i + 1}", description=questions[i])
-                await interaction.response.send_message(embed=em, view=load_history_view(i, questions))
+            self.theme = "History"
+        elif self.values[0] == "Geography":
+            self.theme = "Geography"
+
+        questions = load_questions(self.theme)
+        for i in range(len(questions)):
+            em = discord.Embed(title=f"Question {i + 1}", description=questions[i])
+            await interaction.response.send_message(embed=em, view=load_view(i, questions, self.theme))
 
 class SelectView(discord.ui.View):
     def __init__(self):
