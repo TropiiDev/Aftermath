@@ -8,8 +8,6 @@ import asyncio
 
 # sys imports
 import os
-import logging
-import logging.handlers
 
 load_dotenv()
 
@@ -36,7 +34,6 @@ intents.members = True
 # create the bot
 class MyBot(commands.Bot):
     def __init__(self):
-        # super().__init__(command_prefix=get_server_prefix, intents = intents) - prefix setup
         super().__init__(command_prefix="!", intents=intents)
         self.synced = False
         self.remove_command("help")
@@ -63,7 +60,7 @@ tree = bot.tree
 async def main():
     async with bot:
         await bot.load_extensions()
-        await bot.start(os.getenv("token"))
+        await bot.start(str(os.getenv("token")))
         await asyncio.sleep(0.1)
     await asyncio.sleep(0.1)
 

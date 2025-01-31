@@ -4,3 +4,4 @@
 /.idea
 /commands/__pycache__
 /lib/__pycache__
+.DS_Store

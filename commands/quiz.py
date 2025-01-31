@@ -2,6 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from lib.quiz_helper import *
+from lib.leaderboard_helper import *
 
 class Select(discord.ui.Select):
     def __init__(self):
@@ -22,11 +23,48 @@ class Select(discord.ui.Select):
             self.theme = "Geography"
         elif self.values[0] == "Pop Culture":
             self.theme = "Pop Culture"
+        elif self.values[0] == "Math":
+            self.theme = "Math"
+        elif self.values[0] == "Riddles":
+            self.theme = "Riddles"
 
         questions = load_questions(self.theme)
-        for i in range(len(questions)):
-            em = discord.Embed(title=f"Question {i + 1}", description=questions[i])
-            await interaction.response.send_message(embed=em, view=load_view(i, questions, self.theme))
+        if self.theme != "Riddles":
+            for i in range(len(questions)):
+                em = discord.Embed(title=f"Question {i + 1}", description=questions[i])
+                await interaction.response.send_message(embed=em, view=load_view(i, questions, self.theme))
+        else:
+            correct = 0
+            for i in range(len(questions)):
+                answer = load_answers(i, self.theme)
+                em = discord.Embed(title=f"Question {i + 1}", description=f"{questions[i]}\nPlease type your answer")
+                try:
+                    await interaction.response.send_message(embed=em)
+                except discord.InteractionResponded:
+                    await interaction.followup.send(embed=em)
+
+                try:
+                    message = await interaction.client.wait_for(
+                        'message',
+                        timeout=30.0,
+                        check=lambda m: m.author == interaction.user and m.channel == interaction.channel
+                    )
+
+                    if message.author.bot:
+                        return
+
+                    # Check if the answer is correct (case-insensitive)
+                    if message.content.lower() == answer.lower():
+                        correct += 1
+                        increment_correct(interaction.user.id, self.theme)
+                        await interaction.followup.send("Answer recorded..")
+                
+                except TimeoutError:
+                    await interaction.followup.send(f"Time's up! Please try again.\nYou got {correct} answers correct!")
+                    return
+
+                if i == len(questions) - 1:
+                    await interaction.followup.send(f"You got {correct} answers correct!")
 
 class SelectView(discord.ui.View):
     def __init__(self):

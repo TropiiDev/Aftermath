@@ -58,66 +58,138 @@ def load_questions(theme):
             "Which music artist has the most albums?",
             "Who is top global artist of 2024?"
         ]
+    elif theme == "Math":
+        questions = [
+            "What is the Pythagoras theorem rule?",
+            "What is the answer to (2x5)+5/2?",
+            "What is the quadratic formula?",
+            "What is interest?",
+            "What is √441?",
+            "Which month is 2 months after August?",
+            "What is Ѡ equivalent to?",
+            "What is the longest number with a name?",
+            "What is the first 6 digits of Pi?",
+            "What is the longest side of a triangle called?",
+            "What triangle has the 3 sides equal?",
+            "How many seconds are in a day?",
+            "What is the name of a 9 sided shape?",
+            "What does the internal angles of a triangle add up to?",
+            "Is 173 a prime number?"
+        ]
+    elif theme == "Riddles":
+        questions = [
+            "What kind of band never plays music?",
+            "What has a head and a tail but no body?",
+            "What has four wheels and flies?",
+            "What would you find in the middle of Toronto?",
+            "What is 3/7 chicken, 2/3 cat and 2/4 goat?",
+            "What is so fragile that saying its name breaks it?",
+            "The more you take, the more you leave behind. What are they?",
+            "I am always hungry and will die if not fed, but whatever I touch will soon turn red. What am I?",
+            "The more of this there is, the less you see. What is it?",
+            "What is black when it's clean and white when it's dirty?",
+            "What invention lets you look right through a wall?",
+            "What has hands, but can't clap?",
+            "What has legs, but doesn't walk?",
+            "What has a thumb and four fingers, but is not a hand?",
+            "What building has the most stories?"
+        ]
 
     return questions
 
 def load_answers(question, theme):
     answers = []
     if theme == "History":
-        answers = [
-            '0 1939',
-            '1 1945',
-            '2 USA,USSR',
-            '3 Terentii Shtykov,Kim Il-Sung',
-            '4 Vietnam,Indonesia,Philippines,Jordan,India,Pakistan,Myanmar,SriLanka (Ceylon),Israel,Laos,Cambodia,Syria',
-            '5 264 BC - 241 BC',
-            '6 Nikita Khrushchev',
-            '7 Lyndon B Johnson',
-            '8 Guerrilla Warfare',
-            '9 Holy Roman Empire',
-            '10 Battle of Stamford Bridge',
-            '11 70 - 85 million',
-            '12 Communist',
-            '13 Karl Marx',
-            '14 Nothing,Massacre'
-        ]
+      answers = [
+          '0 1939',
+          '1 1945',
+          '2 USA,USSR',
+          '3 Terentii Shtykov,Kim Il-Sung',
+          '4 Vietnam,Indonesia,Philippines,Jordan,India,Pakistan,Myanmar,SriLanka (Ceylon),Israel,Laos,Cambodia,Syria',
+          '5 264 BC - 241 BC',
+          '6 Nikita Khrushchev',
+          '7 Lyndon B Johnson',
+          '8 Guerrilla Warfare',
+          '9 Holy Roman Empire',
+          '10 Battle of Stamford Bridge',
+          '11 70 - 85 million',
+          '12 Communist',
+          '13 Karl Marx',
+          '14 Nothing,Massacre'
+      ]
     elif theme == "Geography":
-        answers = [
-            "0 Africa",
-            "1 A curved lake formed from a horseshoe",
-            "2 Erosion",
-            "3 San Salvador",
-            "4 Nile",
-            "5 Finland",
-            "6 Mount Everest",
-            "7 Point Nemo",
-            "8 5",
-            "9 Nigeria",
-            "10 Valletta",
-            "11 The Great Wall of China,Petra,Christ the Redeemer,Machu Picchu,Chichen Itza,The Colosseum and The Taj Mahal",
-            "12 Vatican City",
-            "13 Rhode Island",
-            "14 Tokyo"
-        ]
+      answers = [
+          "0 Africa",
+          "1 A curved lake formed from a horseshoe",
+          "2 Erosion",
+          "3 San Salvador",
+          "4 Nile",
+          "5 Finland",
+          "6 Mount Everest",
+          "7 Point Nemo",
+          "8 5",
+          "9 Nigeria",
+          "10 Valletta",
+          "11 The Great Wall of China,Petra,Christ the Redeemer,Machu Picchu,Chichen Itza,The Colosseum and The Taj Mahal",
+          "12 Vatican City",
+          "13 Rhode Island",
+          "14 Tokyo"
+      ]
     elif theme == "Pop Culture":
-        answers = [
-            "0 Subway Surfers",
-            "1 Scarface",
-            "2 Cristiano Ronaldo",
-            "3 Deadpool and Wolverine",
-            "4 Space Invaders",
-            "5 Muggsy Bogues",
-            "6 Kai Cenat",
-            "7 William James Sidis",
-            "8 Elon Musk",
-            "9 Eve,La La Land,Titanic",
-            "10 YouTube Rewind 2018: Everyone Controls Rewind",
-            "11 2016",
-            "12 CrazyBus",
-            "13 Billy Childish",
-            "14 Taylor Swift"
-        ]
-
+      answers = [
+          "0 Subway Surfers",
+          "1 Scarface",
+          "2 Cristiano Ronaldo",
+          "3 Deadpool and Wolverine",
+          "4 Space Invaders",
+          "5 Muggsy Bogues",
+          "6 Kai Cenat",
+          "7 William James Sidis",
+          "8 Elon Musk",
+          "9 Eve,La La Land,Titanic",
+          "10 YouTube Rewind 2018: Everyone Controls Rewind",
+          "11 2016",
+          "12 CrazyBus",
+          "13 Billy Childish",
+          "14 Taylor Swift"
+      ]
+    elif theme == "Math":
+      answers = [
+          "0 a^2+b^2=c^2",
+          "1 12.5",
+          "2 x = (-b ± √(b² - 4ac)) / 2a",
+          "3 P × r × t",
+          "4 21",
+          "5 October",
+          "6 300",
+          "7 Googleplexian",
+          "8 3.14159",
+          "9 Hypotenuse",
+          "10 Equilateral Triangle",
+          "11 86400",
+          "12 Nonagon",
+          "13 180°",
+          "14 Yes"
+      ]
+    elif theme == "Riddles":
+      answers = [
+          "0 Rubber Band",
+          "1 Coin",
+          "2 Garbage truck",
+          "3 The letter o",
+          "4 Chicago",
+          "5 Silence",
+          "6 Footsteps",
+          "7 Fire",
+          "8 Darkness",
+          "9 Chalkboard",
+          "10 Window",
+          "11 Clock",
+          "12 Table",
+          "13 Glove",
+          "14 Library"
+      ]
+        
     answer = answers[question]
     if ',' in answer:
         only_answer = answer.split(f"{str(question)} ")[1]
@@ -182,6 +254,24 @@ def load_choices(question, theme):
             "13 Lady Gaga,Adele,Rihanna",
             "14 Billie Eilish,Ariana Grande,Kendrick Lamar"
         ]
+    elif theme == "Math":
+        choices = [
+            "0 a^3 + b^3 = c^3,a^2 + b^2 = c^3,a^1 + b^1 = c^2",
+            "1 15,20,25",
+            "2 x = (-b ± √(a + c)) / 2a,x = (b ± √(a + c)) / a,x = (b + c) / a",
+            "3 P + r + t,P × r + t,P ÷ r × t",
+            "4 20,500,144",
+            "5 September,July,November",
+            "6 500,200,1000",
+            "7 Googol,Centillion,Octillion",
+            "8 3.14169,3.14559,3.14155",
+            "9 Diameter,Base,Radius",
+            "10 Right Angle Triangle,Scalene Triangle,Acute Triangle",
+            "11 1200,43200,8640",
+            "12 Decagon,Octagon,Dodecagon",
+            "13 270°,360°,90°",
+            "14 No"
+        ]
 
     choice = choices[question]
     only_choice = choice.split(f"{str(question)} ")[1]
@@ -196,26 +286,29 @@ class load_select(discord.ui.Select):
         self.questions = questions
         self.theme = theme
         self.answer = load_answers(question, self.theme)
-        choices = load_choices(question, self.theme)
+        
+        if theme != "Riddles":
+            choices = load_choices(question, self.theme)
+            options = []
+            responses = []
 
-        options = []
-        responses = []
+            if isinstance(self.answer, list):
+                for ans in self.answer:
+                    responses.append(ans)
+            else:
+                responses.append(self.answer)
 
-        if isinstance(self.answer, list):
-            for ans in self.answer:
-                responses.append(ans)
-        else:
-            responses.append(self.answer)
+            for choice in choices:
+                responses.append(choice)
 
-        for choice in choices:
-            responses.append(choice)
+            while responses:
+                response = random.choice(responses)
+                options.append(discord.SelectOption(label=response))
+                responses.remove(response)
 
-        while responses:
-            response = random.choice(responses)
-            options.append(discord.SelectOption(label=response))
-            responses.remove(response)
+            self.options = options
+        
 
-        self.options = options
 
     async def callback(self, interaction: discord.Interaction):
         if isinstance(self.answer, list):
