@@ -40,6 +40,24 @@ def load_questions(theme):
             "What is the smallest US state?",
             "What is the most populated city in the world?"
         ]
+    elif theme == "Pop Culture":
+        questions = [
+            "Which video game is the most downloaded in the world?",
+            "What movie is this line from: 'Say hello to my little friend'?",
+            "Who is the most followed person on Instagram?",
+            "What is the most watched trailer of all time?",
+            "Which video game is the highest earning?",
+            "Who is the shortest NBA player?",
+            "Who is the most subscribed to Twitch streamer?",
+            "Which person has the lowest IQ in the world?",
+            "Who is the richest person in the world?",
+            "What movie has the most Oscar nominations?",
+            "What is the most disliked video on YouTube?",
+            "What year did Hearts of Iron 4 release?",
+            "What is the lowest rated game ever (According to IMDb)?",
+            "Which music artist has the most albums?",
+            "Who is top global artist of 2024?"
+        ]
 
     return questions
 
@@ -80,6 +98,24 @@ def load_answers(question, theme):
             "12 Vatican City",
             "13 Rhode Island",
             "14 Tokyo"
+        ]
+    elif theme == "Pop Culture":
+        answers = [
+            "0 Subway Surfers",
+            "1 Scarface",
+            "2 Cristiano Ronaldo",
+            "3 Deadpool and Wolverine",
+            "4 Space Invaders",
+            "5 Muggsy Bogues",
+            "6 Kai Cenat",
+            "7 William James Sidis",
+            "8 Elon Musk",
+            "9 Eve,La La Land,Titanic",
+            "10 YouTube Rewind 2018: Everyone Controls Rewind",
+            "11 2016",
+            "12 CrazyBus",
+            "13 Billy Childish",
+            "14 Taylor Swift"
         ]
 
     answer = answers[question]
@@ -127,6 +163,24 @@ def load_choices(question, theme):
             "12 Monaco,Liechtenstein,San Marino,Andorra",
             "13 Texas,Connecticut,New Jersey",
             "14 Mexico City,New York,Beijing"
+        ]
+    elif theme == "Pop Culture":
+        choices = [
+            "0 Fortnite,PUBG,Candy Crush",
+            "1 The Godfather,Pulp Fiction,Fight Club",
+            "2 Lionel Messi,Neymar,LeBron James",
+            "3 Star Wars,Avatar,Lord of the Rings",
+            "4 Grand Theft Auto V,FIFA,League of Legends",
+            "5 Michael Jordan,LeBron James,Kobe Bryant",
+            "6 Ninja,Ironmouse,Ludwig,Jynxzi",
+            "7 Albert Einstein,You,Thomas Edison",
+            "8 Jeff Bezos,Warren Buffet,Bill Gates",
+            "9 Avatar,Lord of the Rings,Star Wars",
+            "10 Baby Shark,Gangnam Style,Baby",
+            "11 2020,2017,2018",
+            "12 Angry Birds,Farmville,Roblox",
+            "13 Lady Gaga,Adele,Rihanna",
+            "14 Billie Eilish,Ariana Grande,Kendrick Lamar"
         ]
 
     choice = choices[question]

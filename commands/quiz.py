@@ -20,6 +20,8 @@ class Select(discord.ui.Select):
             self.theme = "History"
         elif self.values[0] == "Geography":
             self.theme = "Geography"
+        elif self.values[0] == "Pop Culture":
+            self.theme = "Pop Culture"
 
         questions = load_questions(self.theme)
         for i in range(len(questions)):
