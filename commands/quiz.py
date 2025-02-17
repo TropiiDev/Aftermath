@@ -79,11 +79,31 @@ class Quiz(commands.Cog):
     async def on_ready(self):
         print("Quiz online")
 
-    quiz = app_commands.Group(name="quiz", description="All the commands related to quiz")
+    #quiz = app_commands.Group(name="quiz", description="All the commands related to quiz")
 
-    @quiz.command(name="leaderboard", description="See who has the highest amount of questions correct")
-    async def leaderboard(self, interaction: discord.Interaction):
-        await interaction.response.send_message(f"This command is not finished")
+    # command might not work as of now but if it does have an issue ill fix and remove comment
+    # if the comment is still here just assume it worked first try
+    @app_commands.command(name="leaderboard", description="See who has the highest amount of questions correct")
+    async def leaderboard(self, interaction: discord.Interaction, theme: str):
+        coll = db.leaderboard
+        guild = coll.find_one({"guild_id": interaction.guild.id})
+
+        if guild is None:
+            await interaction.response.send_message("An error has occurred..")
+            return
+
+        if coll.count_documents({"guild_id": interaction.guild.id}) < 10:
+            await interaction.response.send_message("Not enough users to make a leaderboard")
+            return
+
+        leaderboard = coll.find({"guild_id": interaction.guild.id}).sort(f"{theme}", pymongo.DESCENDING).limit(10)
+
+        em = discord.Embed(title="Quiz Leaderboard", description="Top 10", color=interaction.user.color)
+        for i, user in enumerate(leaderboard):
+            em.add_field(name=f"{i}. {self.bot.get_user(user['_id'])}", value=f"Correct: {user[f"{theme}"]["amount_correct"]}")
+
+        await interaction.response.send_message(embed=em)
+
 
     @app_commands.command(name="quiz", description="Test your knowledge")
     async def quiz(self, interaction: discord.Interaction):
