@@ -12,7 +12,7 @@ class Whisper(commands.Cog):
 
     @app_commands.command(name="whisper", description="secretly send someone a message")
     async def whisper(self, interaction: discord.Interaction, user: discord.User, message: str):
-        await interaction.response.send_message(f"{user.mention}, {interaction.user.mention} whispered {message}", ephemeral=True)
+        await interaction.response.send_message(f"{user.mention}, {interaction.user.mention} whispered '{message}'", ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(Whisper(bot))
