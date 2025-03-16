@@ -150,9 +150,9 @@ class Levels(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def give(self, interaction: discord.Interaction, user: discord.Member, xp: int):
         user_coll = db.accounts
-        user = user_coll.find_one({"_id": user.id})
+        db_user = user_coll.find_one({"_id": user.id})
 
-        if user is None:
+        if db_user is None:
             await interaction.response.send_message(f"Cannot give user {xp} XP because they have not sent a message yet.")
             return
 
