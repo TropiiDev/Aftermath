@@ -314,11 +314,11 @@ class load_select(discord.ui.Select):
         if isinstance(self.answer, list):
             if any(value in self.answer for value in self.values):
                 self.correct += 1
-                increment_correct(interaction.user.id, self.theme)
+                increment_correct(interaction.user.id, interaction.guild.id, self.theme)
         else:
             if self.values[0] == self.answer:
                 self.correct += 1
-                increment_correct(interaction.user.id, self.theme)
+                increment_correct(interaction.user.id, interaction.guild.id, self.theme)
 
         await interaction.response.send_message("Answer recorded..")
 
