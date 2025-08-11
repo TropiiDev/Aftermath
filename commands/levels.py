@@ -67,13 +67,26 @@ class Levels(commands.Cog):
 
         if role_guild is not None:
             roles = role_coll.find_one({"_id": message.guild.id})['roles']
+            guild_user = message.guild.get_member(message.author.id)
 
+            # Get all level role IDs for this guild
+            level_role_ids = [int(role_id) for role_id in roles.keys()]
+            
+            # Remove all existing level roles
+            roles_to_remove = [
+                role for role in guild_user.roles 
+                if role.id in level_role_ids
+            ]
+            if roles_to_remove:
+                await guild_user.remove_roles(*roles_to_remove)
+
+            # Add the new appropriate level role
+            current_level = user['level'] + 1  # Add 1 since we just leveled up
             for role_id, value in roles.items():
-                if roles[role_id]['level_required'] == user['level'] + 1:
+                if roles[role_id]['level_required'] == current_level:
                     role = message.guild.get_role(int(role_id))
-
                     await message.author.add_roles(role)
-                    return
+                    break
 
 
     @levels.command(name="setup", description='Set the levels channel')
