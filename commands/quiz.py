@@ -100,7 +100,7 @@ class Quiz(commands.Cog):
 
         em = discord.Embed(title="Quiz Leaderboard", description="Top 10", color=interaction.user.color)
         for i, user in enumerate(leaderboard):
-            em.add_field(name=f"{i}. {self.bot.get_user(user['_id'])}", value=f"Correct: {user[f"{theme}"]["amount_correct"]}")
+            em.add_field(name=f"{i}. {self.bot.get_user(user['_id'])}", value=f"Correct: {user[theme]['amount_correct']}")
 
         await interaction.response.send_message(embed=em)
 
